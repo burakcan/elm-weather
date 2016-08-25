@@ -4,8 +4,8 @@
   "license": "MIT",
   "version": "0.0.1",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "NODE_ENV=production node utils/build",
+    "clean": "rimraf docs",
+    "build": "npm run clean && NODE_ENV=production node utils/build",
     "start-dev": "NODE_ENV=development node utils/build"
   },
   "devDependencies": {

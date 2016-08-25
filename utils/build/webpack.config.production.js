@@ -19,6 +19,12 @@ module.exports = Object.assign(baseConfig, {
     }]),
   }),
 
+  output: {
+    path: baseConfig.__outPath__,
+    filename: '[name].js',
+    publicPath: '/elm-weather/',
+  },
+
   plugins: baseConfig.plugins.concat([
     extractCSS,
     new webpack.optimize.DedupePlugin(),

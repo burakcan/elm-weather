@@ -8,4 +8,4 @@ apiKey =
 
 apiBase : String
 apiBase =
-  "http://api.openweathermap.org/data/2.5/weather"
+  "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather"
