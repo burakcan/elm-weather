@@ -65,4 +65,6 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
-    [Sub.map ClockMsg <| Clock.subscriptions model.clock]
+    [ Sub.map ClockMsg <| Clock.subscriptions model.clock
+    , Sub.map WeatherMsg <| Weather.subscriptions model.weather
+    ]

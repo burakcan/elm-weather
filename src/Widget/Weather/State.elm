@@ -1,10 +1,11 @@
-module Widget.Weather.State exposing (Model, Msg(..), initCmd, initialState, update)
+module Widget.Weather.State exposing (Model, Msg(..), initCmd, initialState, update, subscriptions)
 
 import Config
 import Widget.CommonTypes exposing (LatLon)
 import Geolocation exposing (Location, Error)
 import Json.Decode exposing ((:=))
 import Json.Decode as Json
+import Time exposing (Time, minute)
 import Http
 import Maybe
 import Task
@@ -115,3 +116,14 @@ decodeWeather =
     (Json.at ["name"] Json.string)
     (Json.at ["main", "temp"] Json.float)
     (Json.at ["weather", "0", "id"] Json.int)
+
+
+-- SUBSCRIPTIONS
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  case model.location of
+    Nothing ->
+      Sub.none
+
+    Just latLon ->
+      Time.every (5 * minute) <| \_ -> FetchWeather model.location
