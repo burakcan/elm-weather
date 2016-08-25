@@ -1,0 +1,77 @@
+body {
+  background: #ECEFF1;
+  color: #444;
+  font-family: 'Droid Serif', serif;
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CloseButton,
+.AddButton {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: #6200EA;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  vertical-align: middle;
+  font-size: 30px;
+  font-weight: 700;
+  margin-left: 10px;
+  outline: none;
+}
+
+.CloseButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #DD2C00;
+  transform: rotateZ(45deg);
+}
+
+.AddForm {
+  position: relative;
+  width: 400px;
+  height: 150px;
+  background: #fff;
+  margin: 0 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: stretch;;
+  justify-content: center;
+  box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+}
+
+.AddForm input {
+  flex: 1;
+  border: none;
+  background: none;
+  text-align: center;
+  outline: none;
+  font-size: 24px;
+}
+
+.AddForm input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #D1C4E9;
+}
+.AddForm input::-moz-placeholder { /* Firefox 19+ */
+  color: #D1C4E9;
+}
+.AddForm input:-ms-input-placeholder { /* IE 10+ */
+  color: #D1C4E9;
+}
+.AddForm input:-moz-placeholder { /* Firefox 18- */
+  color: #D1C4E9;
+}

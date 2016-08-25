@@ -1,0 +1,13 @@
+.Clock {
+  font-family: 'Ubuntu Mono', monospace;
+  width: 50%;
+  height: 100%;
+  flex: none;
+  background: #6200EA;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+}

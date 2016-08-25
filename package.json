@@ -1,0 +1,28 @@
+{
+  "name": "elm-weather",
+  "description": "",
+  "license": "MIT",
+  "version": "0.0.1",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "NODE_ENV=production node utils/build",
+    "start-dev": "NODE_ENV=development node utils/build"
+  },
+  "devDependencies": {
+    "connect-history-api-fallback": "^1.2.0",
+    "css-loader": "^0.23.1",
+    "elm-webpack-loader": "^3.0.6",
+    "express": "^4.13.4",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.19.0",
+    "rimraf": "^2.5.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-middleware": "^1.6.1"
+  },
+  "dependencies": {
+    "normalize.css": "^4.2.0",
+    "weather-icons": "git+https://github.com/erikflowers/weather-icons.git"
+  }
+}

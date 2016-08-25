@@ -1,0 +1,15 @@
+# Logs
+logs
+*.log
+
+# node-waf configuration
+.lock-wscript
+
+node_modules
+elm-stuff
+
+# OSX
+.DS_Store
+
+# App bundled
+dist

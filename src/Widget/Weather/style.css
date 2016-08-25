@@ -1,0 +1,42 @@
+.Weather {
+  width: 50%;
+  height: 100%;
+  flex: none;
+  display: flex;
+  padding: 20px 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.WeatherView,
+.WaitingLocationView,
+.LoadingView {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.Weather-Icon {
+  font-size: 42px;
+  color: #6200EA;
+}
+
+.Weather-Temp {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.Weather-City {
+  flex: none;
+  width: 100%;
+  margin: 16px 0 0;
+  padding: 16px 0 0;
+  font-size: 12px;
+  border-top: 1px dashed #6200EA;
+  text-align: center;
+}
