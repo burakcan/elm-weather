@@ -51,7 +51,6 @@ body {
   display: flex;
   align-items: stretch;;
   justify-content: center;
-  box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
 }
 
 .AddForm input {
@@ -74,4 +73,33 @@ body {
 }
 .AddForm input:-moz-placeholder { /* Firefox 18- */
   color: #D1C4E9;
+}
+
+.AddForm-AutoComplete {
+  text-align: center;
+  position: absolute;
+  top: 120px;
+  padding-top: 14px;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  border-radius: 4px;
+  display: none;
+}
+
+.AddForm-AutoComplete.has-items {
+  display: block;
+}
+
+.AddForm-AutoComplete > div {
+  margin-bottom: 14px;
+  padding: 0 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #e5e5e5;
+}
+
+.AddForm-AutoComplete > div.selected {
+  color: #6200EA;
 }
