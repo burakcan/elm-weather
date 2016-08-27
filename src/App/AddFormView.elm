@@ -18,7 +18,6 @@ addFormView model =
       , onInput CityInput
       ] []
     , autoCompleteView model
-    , button [ class "CloseButton", onClick <| SetAddForm False ] [ text "+" ]
     ]
 
 

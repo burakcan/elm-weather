@@ -18,15 +18,14 @@ appView model =
 
     addFormOrButton =
       if (not model.formOpen) then
-        button [ class "AddButton", onClick <| SetAddForm True ] [ text "+" ]
+        [ button [ class "AddButton", onClick <| SetAddForm True ] [ text "+" ] ]
       else
-        addFormView model
+        [ addFormView model
+        , button [ class "CloseButton", onClick <| SetAddForm False ] [ text "+" ]
+        ]
 
   in
-    div [ class "App" ] <| List.concat
-      [widgets, [
-        addFormOrButton
-      ]]
+    div [ class "App" ] <| List.concat [ widgets, addFormOrButton ]
 
 indexedWidgetView : IndexedWidget -> Html Msg
 indexedWidgetView model =

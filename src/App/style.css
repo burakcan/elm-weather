@@ -31,17 +31,17 @@ body {
   font-weight: 700;
   margin-left: 10px;
   outline: none;
+  transition: transform .5s ease;
 }
 
 .CloseButton {
-  position: absolute;
-  right: 10px;
-  top: 10px;
   color: #DD2C00;
   transform: rotateZ(45deg);
+  animation: 0.2s ease closeButtonAppear;
 }
 
 .AddForm {
+  animation: 0.5s ease formOpen;
   position: relative;
   width: 400px;
   height: 150px;
@@ -60,6 +60,8 @@ body {
   text-align: center;
   outline: none;
   font-size: 24px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .AddForm input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -102,4 +104,27 @@ body {
 
 .AddForm-AutoComplete > div.selected {
   color: #6200EA;
+}
+
+@-webkit-keyframes closeButtonAppear {
+  from {
+    color: #6200EA;
+    transform: rotateZ(0);
+  }
+
+  to {
+    color: #DD2C00;
+    transform: rotateZ(45deg);
+  }
+}
+
+
+@-webkit-keyframes formOpen {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 400px;
+  }
 }

@@ -4,12 +4,14 @@ import Config exposing (googleAutoComplete)
 import Widget.State as Widget
 import Widget.CommonTypes exposing (LatLon)
 import Json.Decode as Json
+import Maybe exposing (withDefault, andThen)
+import String
+import Keyboard
 import Http
 import Task
 import Process
 import List
 import Debug
-
 
 
 -- MODEL
@@ -34,6 +36,9 @@ type Msg
   | CityInput String
   | AutoCompleteSuccess String (List String)
   | AutoCompleteFailed Http.Error
+  | SetSelectedResult Int
+  | ConfirmSelected
+  | NoOp
 
 
 -- INIT
@@ -52,6 +57,8 @@ init =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    NoOp ->
+      (model, Cmd.none)
     WidgetMsg id widgetMsg ->
       let
         (widgets, cmds) =
@@ -62,7 +69,7 @@ update msg model =
         ({ model | widgets = widgets }, Cmd.batch cmds)
 
     SetAddForm nextState ->
-      ({ model | formOpen = nextState }, Cmd.none)
+      ({ model | formOpen = nextState, searchResult = Nothing }, Cmd.none)
 
     CityInput input ->
       ({ model | searchTerm = input}, autoComplete input)
@@ -73,9 +80,7 @@ update msg model =
           if (input /= model.searchTerm) then
             model.searchResult
           else
-            Maybe.withDefault (Just result) Nothing
-
-        _ = Debug.log "result: " maybeResult
+            (Just result) `withDefault` Nothing
       in
         ({ model | searchResult = maybeResult }, Cmd.none)
 
@@ -85,6 +90,52 @@ update msg model =
       in
         (model, Cmd.none)
 
+    SetSelectedResult dir ->
+      let
+        resultLen =
+          case model.searchResult of
+            Nothing ->
+              0
+            Just result ->
+              List.length result
+
+        probablyNext =
+          model.selectedResult + dir
+
+        next =
+          min (resultLen - 1) <| max 0 probablyNext
+      in
+        ({ model | selectedResult = next }, Cmd.none)
+
+    ConfirmSelected ->
+      let
+        city =
+          Debug.log "city: " <| getCityAndCountry model.searchResult model.selectedResult
+
+      in
+      (model, Cmd.none)
+
+
+getCityAndCountry : Maybe (List String) -> Int -> Maybe (Maybe String, Maybe String)
+getCityAndCountry searchResult selected =
+  let
+    tuple =
+      searchResult
+      `andThen`
+      (\list ->
+        List.head <| List.drop selected list
+      )
+      `andThen`
+      (\item ->
+        (Just <| String.split "," item) `withDefault` Nothing
+      )
+      `andThen`
+      (\list ->
+        (Just (List.head list, List.head <| List.reverse list)) `withDefault` Nothing
+      )
+
+  in
+    tuple
 
 updateWidgetModel : Int -> Widget.Msg -> IndexedWidget -> IndexedWidget
 updateWidgetModel id msg model =
@@ -127,8 +178,34 @@ decodeAutoComplete =
 -- SUBSCRIPTIONS
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.batch <|
-    List.map mapWidgetSubscriptions model.widgets
+  let
+    widgetSubs =
+      List.map mapWidgetSubscriptions model.widgets
+
+    keyboardSubs =
+      case model.searchResult of
+        Nothing ->
+          [Sub.none]
+        Just list ->
+          [ Keyboard.downs <|
+            \code ->
+              let
+                dir =
+                  if (code == 38) then -1
+                  else if (code == 40) then 1
+                  else 0
+              in
+                SetSelectedResult dir
+            , Keyboard.downs <|
+              \code ->
+                if (code == 13) then
+                  ConfirmSelected
+                else
+                  NoOp
+          ]
+  in
+    Sub.batch <| List.concat [ widgetSubs, keyboardSubs ]
+
 
 
 mapWidgetSubscriptions : IndexedWidget -> Sub Msg
